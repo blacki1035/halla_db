@@ -6,7 +6,7 @@ create table 고객(
     직업 varchar(20),
     적립금 int default 0,
     primary key(고객아이디)
-)
+);
 create table 제품( 
     제품번호 char(3) not null, 
     제품명 varchar(20), 
@@ -15,7 +15,7 @@ create table 제품(
     제조업체 varchar(20), 
     primary key(제품번호), 
     check (재고량 >= 0 and 재고량 <=10000) 
-)
+);
 create table 주문( 
     주문번호 char(3) not null, 
     주문고객 varchar(20), 
@@ -26,12 +26,16 @@ create table 주문(
     primary key(주문번호), 
     foreign key(주문고객) references 고객(고객아이디), 
     foreign key(주문제품) references 제품(제품번호) 
-)
+);
+
+
 alter table 고객 add 가입날짜 date
 alter table 고객 drop column 가입날짜
 alter table 고객 add constraint ch_age check(나이 >= 20)
 alter table 고객 drop constraint ch_age
 drop table 배송업체
+
+
 
 insert into 고객 values ('apple', '정소화', 20, 'gold', '학생', 1000);
 insert into 고객 values ('banana', '김선우', 25, 'vip', '간호사', 2500);
@@ -41,7 +45,6 @@ insert into 고객 values ('melon', '성원용', 35, 'gold', '회사원', 5000);
 insert into 고객 values ('peach', '오형준', NULL, 'silver', '의사', 300);
 insert into 고객 values ('pear', '채광주', 31, 'silver', '회사원', 500);
 
-select * from 고객
 
 insert into 제품 values ('p01', '그냥만두', 5000, 4500, '대한식품');
 insert into 제품 values ('p02', '매운쫄면', 2500, 5500, '민국푸드');
@@ -50,7 +53,7 @@ insert into 제품 values ('p04', '맛난초콜릿', 1250, 2500, '한빛제과')
 insert into 제품 values ('p05', '얼큰라면', 2200, 1200, '대한식품');
 insert into 제품 values ('p06', '통통우동', 1000, 1550, '민국푸드');
 insert into 제품 values ('p07', '달콤비스킷', 1650, 1500, '한빛제과');
-select * from 제품
+
 
 insert into 주문 values ('o01', 'apple', 'p03', 10, '서울시 마포구', date '2022-01-01');
 insert into 주문 values ('o02', 'melon', 'p01', 5, '인천시 계양구', date '2022-01-10');
@@ -62,6 +65,8 @@ insert into 주문 values ('o07', 'apple', 'p03', 22, '서울시 영등포구', 
 insert into 주문 values ('o08', 'pear', 'p02', 50, '강원도 춘천시', date '2022-04-10');
 insert into 주문 values ('o09', 'banana', 'p04', 15, '전라남도 목포시', date '2022-04-11');
 insert into 주문 values ('o10', 'carrot', 'p03', 20, '경기도 안양시', date '2022-05-22');
+
+
 select * from 주문
 
 select distinct 제조업체 as 업체 from 제품
